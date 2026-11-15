@@ -65,6 +65,10 @@
   /* «OXY» в заголовке — буквы из логотипа (SALES/logo, толстая линия с круглыми концами), не шрифт */
   .word { height: .74em; width: auto; vertical-align: -0.02em; margin-left: .12em; }
   .hero p { margin: 0; color: var(--muted); max-width: 30ch; }
+  /* обіцянка команди: проект живий і розвивається (просьба владельца) */
+  .hero .team { margin-top: 6px; padding-top: 16px; max-width: 34ch; font-size: 15px; color: var(--muted); position: relative; }
+  .hero .team::before { content: ""; position: absolute; top: 0; left: 50%; width: 56px; height: 2px; margin-left: -28px; border-radius: 2px;
+                        background: linear-gradient(90deg, var(--eye), var(--lime), var(--pink)); }
   .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px; }
   .chip { font-size: 14px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1.5px solid; background: rgba(255,255,255,.03); }
   .chip.c1 { border-color: var(--lime); color: var(--lime); }
@@ -72,15 +76,30 @@
   .chip.c3 { border-color: var(--pink); color: var(--pink); }
 
   /* ---------- шаги ---------- */
-  main .wrap { padding-block: 12px 56px; display: grid; gap: 18px; }
+  main .wrap { padding-block: 12px 56px; display: grid; gap: 18px; perspective: 1100px; }
+
+  /* ---------- «колесо»: пункт в центре экрана выезжает вперёд, соседние — меньше, бледнее, завалены назад.
+     Значения ставит скрипт внизу (--k: 0 — в фокусе, 1 — далеко; --s: −1 выше центра … +1 ниже).
+     Текст в пунктах виден всегда (просьба владельца) — двигается только сам пункт.
+     Объёмный вариант (толщина, тени, сильный поворот) владелец попробовал и отклонил 2026-11-15. */
+  .js-wheel main .card, .js-wheel main .update {
+    --k: 1; --s: 1;
+    transform: translateZ(0) rotateX(calc(var(--s) * var(--k) * -14deg)) scale(calc(1 - var(--k) * .1));
+    opacity: calc(1 - var(--k) * .55);
+    transform-origin: 50% calc(50% - var(--s) * 40%);
+    will-change: transform, opacity;
+  }
+  .js-wheel main .card::after { content: ""; position: absolute; inset: -2px; border-radius: 24px; pointer-events: none;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 24px 60px -18px var(--glow, transparent); opacity: 0; transition: opacity .45s; }
+  .js-wheel main .card.on::after { opacity: 1; }
+  /* шапка при прокрутке уходит назад */
+  .js-wheel .hero .wrap { transform: translateY(calc(var(--h, 0) * 40px)) scale(calc(1 - var(--h, 0) * .12)); opacity: calc(1 - var(--h, 0) * .8); }
   /* рамка-градиент: фон карточки по padding-box, градиент рамки по border-box */
   .card { border: 2px solid transparent; border-radius: 24px; padding: 22px 20px; position: relative;
           background: linear-gradient(165deg, var(--card-a), var(--card-b)) padding-box,
                       linear-gradient(135deg, var(--f1), var(--f2) 60%, rgba(255,255,255,.06)) border-box;
           box-shadow: 0 18px 40px -24px var(--glow, transparent);
-          animation: rise .6s ease-out both; }
-  .card:nth-child(2) { animation-delay: .08s } .card:nth-child(3) { animation-delay: .16s } .card:nth-child(4) { animation-delay: .24s }
-  @keyframes rise { from { transform: translateY(10px) } to { transform: none } }
+          }
   .tag { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: .02em;
          padding: 5px 12px 5px 6px; border-radius: 999px; background: linear-gradient(100deg, var(--f1), var(--f2)); color: var(--ink); }
   .tag b { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 12px; letter-spacing: 0; }
@@ -114,6 +133,25 @@
          border: 1.5px solid var(--line); font-weight: 600; background: linear-gradient(100deg, var(--soft), transparent); }
   .app small { font-weight: 600; font-size: 13px; color: #fff; background: linear-gradient(100deg, var(--pink), var(--berry)); padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
 
+  /* карточка-загадка вместо списка умений: покупатель открывает характер сам */
+  .secret { text-align: center; }
+  .secret h2 { font-size: 23px; }
+  .tip { margin-top: 14px; padding: 14px 16px; border-radius: 16px; background: rgba(237,115,52,.10);
+         border: 1.5px solid rgba(237,115,52,.35); font-size: 15px; }
+  .tip b { color: #F6B08A; }
+
+  /* питання */
+  .faq { padding: 6px 4px 0; }
+  .faq h2 { margin: 6px 0 10px; }
+  .faq details { border-top: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; padding: 14px 32px 14px 0; font-weight: 600; position: relative; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: ""; position: absolute; right: 6px; top: 50%; width: 9px; height: 9px; margin-top: -7px;
+                        border-right: 2px solid var(--eye); border-bottom: 2px solid var(--eye); transform: rotate(45deg); transition: transform .25s; }
+  .faq details[open] summary::after { transform: rotate(225deg); margin-top: -2px; }
+  .faq details p { margin: 0 0 14px; color: var(--muted); }
+
   /* кнопка */
   .keys { display: grid; gap: 10px; margin-top: 6px; }
   .key { display: grid; grid-template-columns: 88px 1fr; align-items: center; gap: 14px; }
@@ -133,7 +171,7 @@
   footer .legal { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
   footer svg { display: block; margin: 0 auto 8px; color: var(--text); opacity: .85; }
 
-  @media (prefers-reduced-motion: reduce) { .gaze, .lids, .breath, .card, .hero::before { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .gaze, .lids, .breath, .hero::before { animation: none; } }
 </style>
 </head>
 <body>
@@ -156,6 +194,8 @@
     <h1>Привіт, я <svg class="word" viewBox="0 0 312 120" role="img" aria-label="OXY"><defs><linearGradient id="wg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6FE7F5"/><stop offset=".55" stop-color="#DDF650"/><stop offset="1" stop-color="#E684B4"/></linearGradient></defs><g fill="none" stroke="url(#wg)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="11" width="80" height="98" rx="36"/><path d="M127 11 L197 109 M197 11 L127 109"/><path d="M229 11 L265 58 L301 11 M265 58 L265 109"/></g></svg></h1>
     <p>Три кроки — і я живу на твоєму столі.</p>
     <div class="chips"><span class="chip c1">Увімкни</span><span class="chip c2">Wi-Fi</span><span class="chip c3">Застосунок</span></div>
+    <p class="team">Мене створила молода команда з України. Вона постійно працює над тим, щоб я ставав кращим, —
+      а нові вміння приходять до мене самі.</p>
   </div>
 </header>
 
@@ -214,10 +254,20 @@
     <section class="card s4">
       <h2 style="margin-top:0">Кнопка збоку</h2>
       <div class="keys">
-        <div class="key k1"><div class="press"><i></i></div><p><b>Коротко</b><span>годинник → погода → заряд</span></p></div>
+        <div class="key k1"><div class="press"><i></i></div><p><b>Коротко</b><span>годинник → погода → заряд, кожне натискання — далі</span></p></div>
         <div class="key k2"><div class="press"><i></i></div><p><b>Тримати 1,5 с</b><span>я засинаю</span></p></div>
         <div class="key k3"><div class="press"><i></i></div><p><b>Тримати 3,5 с</b><span>вимкнути або увімкнути звук</span></p></div>
       </div>
+      <div class="tip">
+        <b>Годинник на столі.</b> Коли на екрані годинник, натисни й тримай кнопку 1,5 с — годинник залишиться,
+        а я відпочину. Яскравість через хвилину стане м’якшою. Коротко натиснеш — повернуться очі.
+      </div>
+    </section>
+
+    <section class="card s2 secret">
+      <h2 style="margin-top:0">Решту — дізнайся сам</h2>
+      <p>Торкнися мене. Візьми в руки. Просто побудь поруч.</p>
+      <p class="muted" style="margin:0">У мене є свій характер — і кілька секретів.</p>
     </section>
 
     <section class="update">
@@ -227,6 +277,24 @@
         <p>Нові вміння приходять через Wi-Fi. Після оновлення я перезапущусь і привітаюсь.</p>
       </div>
     </section>
+
+    <section class="faq">
+      <h2>Питання</h2>
+      <details>
+        <summary>Чому я мовчу?</summary>
+        <p>Вночі, з 23:00 до 7:00, я тихий навмисно. Удень звук міг бути вимкнений кнопкою — потримай її 3,5 с,
+           і він увімкнеться.</p>
+      </details>
+      <details>
+        <summary>Не підключаюсь до Wi-Fi</summary>
+        <p>Мені потрібна мережа 2,4 ГГц (5 ГГц я не бачу). Перевір пароль і вимкни-увімкни мене —
+           моя мережа «OXY-…» для налаштування відкриється знову на 10 хвилин.</p>
+      </details>
+      <details>
+        <summary>Як мене заряджати</summary>
+        <p>Кабелем USB-C. Натисни кнопку тричі коротко — побачиш заряд: очі-батарейки, у яких піднімається вода.</p>
+      </details>
+    </section>
   </div>
 </main>
 
@@ -235,5 +303,47 @@
   OXY by ukraine
   <a class="legal" href="privacy.html">Політика конфіденційності</a>
 </footer>
+
+<script>
+/* «Колесо» пунктов: тот, что в центре экрана, — крупный и яркий; соседние уменьшаются и заваливаются назад.
+   Без «уменьшения движения» в настройках телефона; без скрипта страница просто обычная. */
+(function () {
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var root = document.documentElement;
+  root.classList.add('js-wheel');
+  var items = [].slice.call(document.querySelectorAll('main .card, main .update'));
+  var hero = document.querySelector('.hero');
+  var ticking = false;
+  function ease(x) { return x * x * (3 - 2 * x); }
+  function update() {
+    ticking = false;
+    var vh = window.innerHeight || 700, c = vh * 0.5, band = vh * 0.55;
+    for (var i = 0; i < items.length; i++) {
+      var el = items[i], r = el.getBoundingClientRect(), k, s;
+      /* высокий пункт в фокусе всё время, пока он закрывает центр экрана */
+      var top = r.top + Math.min(r.height * 0.5, vh * 0.18), bot = r.bottom - Math.min(r.height * 0.5, vh * 0.18);
+      if (top <= c && bot >= c) { k = 0; s = 0; }
+      else if (top > c) { k = (top - c) / band; s = 1; }
+      else { k = (c - bot) / band; s = -1; }
+      k = ease(Math.max(0, Math.min(1, k)));
+      el.style.setProperty('--k', k.toFixed(3));
+      el.style.setProperty('--s', s);
+      el.classList.toggle('on', k < 0.12);
+    }
+    if (hero) {
+      var h = Math.max(0, Math.min(1, -hero.getBoundingClientRect().top / (hero.offsetHeight * 0.9)));
+      hero.style.setProperty('--h', h.toFixed(3));
+    }
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  /* браузер может сам вернуть прежнее место прокрутки после загрузки — пересчитать */
+  window.addEventListener('load', onScroll);
+  window.addEventListener('pageshow', onScroll);
+  setTimeout(onScroll, 250);
+  update();
+})();
+</script>
 </body>
 </html>
