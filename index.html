@@ -132,6 +132,9 @@
   .app { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 16px;
          border: 1.5px solid var(--line); font-weight: 600; background: linear-gradient(100deg, var(--soft), transparent); }
   .app small { font-weight: 600; font-size: 13px; color: #fff; background: linear-gradient(100deg, var(--pink), var(--berry)); padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  a.app { color: inherit; text-decoration: none; border-color: var(--eye); box-shadow: 0 0 18px rgba(111, 231, 245, .18); }
+  a.app small { color: #06222A; background: linear-gradient(100deg, var(--eye), var(--lime)); }
+  a.app:active { transform: scale(.98); }
 
   /* карточка-загадка вместо списка умений: покупатель открывает характер сам */
   .secret { text-align: center; }
@@ -234,7 +237,7 @@
         </div>
         <div class="way">
           <h3>Через застосунок OXY</h3>
-          <p style="margin:0">Відкрий екран Wi-Fi у застосунку, обери мережу та введи пароль.</p>
+          <p style="margin:0">Відкрий <a href="app.html" style="color:var(--eye)">застосунок</a> (Android, Chrome), натисни на Wi-Fi, обери мережу та введи пароль.</p>
         </div>
       </div>
       <p class="muted" style="margin:12px 0 0">Помилився з паролем? Вимкни і знову увімкни мене — налаштування відкриється знову.</p>
@@ -243,12 +246,12 @@
     <section class="card s3">
       <span class="tag"><b>3</b>Крок</span>
       <h2>Застосунок OXY</h2>
-      <p>Налаштування, мій настрій і звуки — через Bluetooth.</p>
+      <p>Заряд, Wi-Fi і звук — через Bluetooth. Нічого не треба встановлювати: застосунок відкривається просто в Chrome.</p>
       <div class="apps">
-        <div class="app">Android · Google Play <small>незабаром</small></div>
+        <a class="app" href="app.html">Android · Chrome <small>Відкрити</small></a>
         <div class="app">iPhone · App Store <small>незабаром</small></div>
       </div>
-      <p class="muted" style="margin:10px 0 0">Поки застосунку немає, Wi-Fi можна налаштувати з будь-якого телефона (крок 2).</p>
+      <p class="muted" style="margin:10px 0 0">На iPhone поки що налаштуй Wi-Fi з будь-якого телефона (крок 2).</p>
     </section>
 
     <section class="card s4">
