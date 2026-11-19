@@ -716,6 +716,11 @@ $('w-forget').addEventListener('click', async () => {
     } else msg = '<b>Цей браузер не вміє працювати з Bluetooth.</b> Відкрийте сторінку в Chrome на телефоні Android.';
   }
   if (msg) { box.innerHTML = msg; box.hidden = false; $('ready').hidden = true; return; }
+  // из мастера на главной: шаги уже пройдены — остаётся одна кнопка
+  if (location.hash === '#go') {
+    document.querySelector('#ready .steps').hidden = true;
+    document.querySelector('.start > p').textContent = 'Натисніть кнопку, виберіть у списку OXY‑… і натисніть «Підключити».';
+  }
   try {
     if (navigator.bluetooth.getAvailability && !(await navigator.bluetooth.getAvailability())) {
       box.innerHTML = '<b>Bluetooth на телефоні вимкнено.</b> Увімкніть його — і натисніть «Знайти робота».'; box.hidden = false;
@@ -727,6 +732,7 @@ $('find').addEventListener('click', () => {
   $('unsupported').hidden = true;
   let seen = false;
   try { seen = localStorage.getItem('oxy_connected') === '1'; } catch {}
+  if (location.hash === '#go') seen = true; // пришли из мастера на главной: про окно дозволу там уже рассказали
   if (seen) find(); else show('guide');
 });
 $('g-go').addEventListener('click', () => find());  // нажатие кнопки — Chrome разрешает открыть окно поиска только по нажатию

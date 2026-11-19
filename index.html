@@ -47,8 +47,8 @@
                   background: conic-gradient(from 0deg, rgba(111,231,245,.35), rgba(197,46,121,.3), rgba(237,115,52,.25), rgba(221,246,80,.25), rgba(111,231,245,.35));
                   filter: blur(70px); opacity: .55; animation: spin 18s linear infinite; pointer-events: none; }
   @keyframes spin { to { transform: rotate(360deg) } }
-  .hero .wrap { position: relative; padding-block: 44px 40px; display: grid; justify-items: center; gap: 20px; text-align: center; }
-  .face { width: min(260px, 72vw); height: auto; display: block; filter: drop-shadow(0 0 22px rgba(111, 231, 245, .35)); }
+  .hero .wrap { position: relative; padding-block: 22px 18px; display: grid; justify-items: center; gap: 20px; text-align: center; }
+  .face { width: min(170px, 46vw); height: auto; display: block; filter: drop-shadow(0 0 22px rgba(111, 231, 245, .35)); }
   .face .body { fill: none; stroke: url(#rim); stroke-width: 7; }
   .face .screen { fill: #05070A; }
   .face .eye { fill: url(#eyeg); }
@@ -174,6 +174,57 @@
   footer .legal { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
   footer svg { display: block; margin: 0 auto 8px; color: var(--text); opacity: .85; }
 
+
+  /* ---------- мастер подключения: по одному шагу на экране ---------- */
+  .wiz { --f1: var(--eye); --f2: var(--lime); --glow: rgba(111,231,245,.45); scroll-margin-top: 12px; }
+  .wz-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .wz-dots { display: flex; gap: 6px; }
+  .wz-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: background .2s, width .2s; }
+  .wz-dots i.on { width: 22px; border-radius: 4px; background: linear-gradient(90deg, var(--eye), var(--lime)); }
+  .wz-dots i.done { background: var(--eye); }
+  .wz-step { display: none; }
+  .wz-step.cur { display: block; animation: wzin .35s ease; }
+  @keyframes wzin { from { opacity: 0; transform: translateX(14px); } }
+  .wz-step h2 { margin-top: 16px; }
+  .wz-big { display: grid; gap: 12px; margin-top: 16px; }
+  .wz-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 56px; padding: 0 22px;
+            border: 0; border-radius: 28px; font: 800 18px/1.2 var(--font); color: #06222A; cursor: pointer; text-decoration: none;
+            background: linear-gradient(100deg, var(--eye), var(--lime)); box-shadow: 0 8px 26px rgba(111,231,245,.28); }
+  .wz-btn:active { transform: scale(.98); }
+  .wz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; min-height: 40px; }
+  .wz-link { background: none; border: 0; padding: 8px 4px; color: var(--muted); font: 600 15px var(--font); cursor: pointer; text-decoration: underline; }
+  .wz-phone { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 18px; border-radius: 18px; cursor: pointer; text-align: left;
+              border: 1.5px solid var(--line); background: linear-gradient(100deg, var(--soft), transparent); color: var(--text); font: 800 20px var(--font); }
+  .wz-phone small { display: block; font: 400 14px var(--font); color: var(--muted); }
+  .wz-phone.mine { border-color: var(--eye); box-shadow: 0 0 18px rgba(111,231,245,.2); }
+  .wz-phone.mine small { color: var(--eye); }
+  .wz-phone svg { flex: none; }
+  /* макеты чужих окон (Chrome, Android, iPhone): нарисованы похоже, нужная кнопка обведена */
+  .mock { margin: 14px 0 4px; background: #1C2126; border: 1px solid #333B44; border-radius: 14px; padding: 12px 14px; font-size: 14px; color: #CFD6DC; line-height: 1.4; }
+  .mock.light { background: #F2F2F7; color: #1C1C1E; border-color: #D1D1D6; }
+  .mock .ttl { color: #EEF1F4; margin-bottom: 6px; }
+  .mock.light .ttl { color: #1C1C1E; font-weight: 700; }
+  .mock .lnk { color: #8AB4F8; text-decoration: underline; }
+  .mock .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 9px 6px; }
+  .mock .row + .row { border-top: 1px solid #2C333A; }
+  .mock.light .row + .row { border-top-color: #D1D1D6; }
+  .mock .bar { display: flex; justify-content: flex-end; gap: 18px; align-items: center; margin-top: 10px; color: #8AB4F8; font-weight: 600; }
+  .mock .pill { padding: 7px 14px; border-radius: 999px; background: #8AB4F8; color: #0B1A2E; font-weight: 700; }
+  .mock .tog { width: 36px; height: 20px; border-radius: 10px; background: #8AB4F8; position: relative; flex: none; }
+  .mock .tog::after { content: ""; position: absolute; right: 2px; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: #0B1A2E; }
+  .mock .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .mock .tile { aspect-ratio: 1; border-radius: 16px; background: #2C333A; display: grid; place-items: center; color: #9AA3AD; }
+  .mock .tile.lit { background: #8AB4F8; color: #0B1A2E; }
+  .mock .fld { background: #222; border: 1px solid #444; border-radius: 8px; padding: 7px 10px; color: #999; margin: 4px 0 8px; }
+  .mock .sbtn { display: inline-block; background: #44AADD; color: #fff; border-radius: 8px; padding: 7px 16px; font-weight: 700; }
+  .hl { border-radius: 8px; outline: 2px solid var(--lime); outline-offset: 3px; animation: hl 1.6s ease-in-out infinite; }
+  @keyframes hl { 50% { outline-color: rgba(221,246,80,.25); } }
+
+  /* «команда з України» — под мастером подключения, в стиле шапки */
+  .team.after { text-align: center; margin: 4px auto 0; padding-top: 16px; max-width: 34ch; font-size: 15px; color: var(--muted); position: relative; }
+  .team.after::before { content: ""; position: absolute; top: 0; left: 50%; width: 56px; height: 2px; margin-left: -28px; border-radius: 2px; background: linear-gradient(90deg, var(--eye), var(--lime), var(--pink)); }
+  @media (prefers-reduced-motion: reduce) { .wz-step.cur, .hl { animation: none; }
+  }
   @media (prefers-reduced-motion: reduce) { .gaze, .lids, .breath, .hero::before { animation: none; } }
 </style>
 </head>
@@ -195,64 +246,118 @@
       </g>
     </svg>
     <h1>Привіт, я <svg class="word" viewBox="0 0 312 120" role="img" aria-label="OXY"><defs><linearGradient id="wg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6FE7F5"/><stop offset=".55" stop-color="#DDF650"/><stop offset="1" stop-color="#E684B4"/></linearGradient></defs><g fill="none" stroke="url(#wg)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="11" width="80" height="98" rx="36"/><path d="M127 11 L197 109 M197 11 L127 109"/><path d="M229 11 L265 58 L301 11 M265 58 L265 109"/></g></svg></h1>
-    <p>Три кроки — і я живу на твоєму столі.</p>
-    <div class="chips"><span class="chip c1">Увімкни</span><span class="chip c2">Wi-Fi</span><span class="chip c3">Застосунок</span></div>
-    <p class="team">Мене створила молода команда з України. Вона постійно працює над тим, щоб я ставав кращим, —
-      а нові вміння приходять до мене самі.</p>
+    <p>Кілька простих кроків — і я живу на твоєму столі. Я проведу тебе.</p>
   </div>
 </header>
 
 <main>
   <div class="wrap">
-    <section class="card s1">
-      <span class="tag"><b>1</b>Крок</span>
-      <h2>Увімкни мене</h2>
-      <p>Перемкни вимикач — я прокинусь і подивлюсь на тебе.</p>
-      <p class="muted">Заряджай через кабель USB-C. Коли я голодний, мої очі стають батарейками з водою.</p>
-    </section>
+    <section class="card wiz" id="pidkliuchennia">
+      <div class="wz-top"><span class="tag"><b>✓</b>Підключення</span><div class="wz-dots" id="wz-dots" aria-hidden="true"></div></div>
 
-    <section class="card s2">
-      <span class="tag"><b>2</b>Крок</span>
-      <h2>Підключи до Wi-Fi</h2>
-      <p>Тоді я знатиму точний час і погоду та сам отримуватиму оновлення. Потрібна мережа 2,4 ГГц.</p>
-      <div class="ways">
-        <div class="way">
-          <h3>З будь-якого телефона</h3>
-          <ol>
-            <li>Після увімкнення я на 10 хвилин відкриваю свою мережу.</li>
-            <li>Підключись до неї — сторінка налаштування відкриється сама.</li>
-            <li>Обери свою мережу, введи пароль і натисни «Зберегти».</li>
-          </ol>
-          <div class="wifi" aria-hidden="true">
-            <div class="net me">
-              <svg width="18" height="14" viewBox="0 0 18 14"><path d="M1 5a12 12 0 0 1 16 0M4 8a7.5 7.5 0 0 1 10 0M7 11a3 3 0 0 1 4 0" fill="none" stroke="#6FE7F5" stroke-width="2" stroke-linecap="round"/></svg>
-              <span>OXY-8195 <small>· це я</small></span>
-            </div>
-            <div class="net">
-              <svg width="18" height="14" viewBox="0 0 18 14"><path d="M1 5a12 12 0 0 1 16 0M4 8a7.5 7.5 0 0 1 10 0M7 11a3 3 0 0 1 4 0" fill="none" stroke="#5E666F" stroke-width="2" stroke-linecap="round"/></svg>
-              <span>Твоя домашня мережа</span>
-            </div>
-          </div>
-          <p class="muted" style="margin:8px 0 0">Чотири знаки після «OXY-» у кожного робота свої.</p>
-        </div>
-        <div class="way">
-          <h3>Через застосунок OXY</h3>
-          <p style="margin:0">Відкрий <a href="app.html" style="color:var(--eye)">застосунок</a> (Android, Chrome), натисни на Wi-Fi, обери мережу та введи пароль.</p>
+      <!-- выбор телефона -->
+      <div class="wz-step" data-id="choose">
+        <h2>Який у тебе телефон?</h2>
+        <p>Я проведу тебе крок за кроком — це кілька хвилин.</p>
+        <div class="wz-big" id="wz-phones">
+          <button class="wz-phone" data-go="android"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#9BE36A" stroke-width="2" stroke-linecap="round"><path d="M5 11a7 7 0 0 1 14 0v6H5z"/><path d="M8 4l1.5 2.5M16 4l-1.5 2.5"/><circle cx="9.5" cy="9" r=".6" fill="#9BE36A"/><circle cx="14.5" cy="9" r=".6" fill="#9BE36A"/></svg>
+            <span>Android<small>Samsung, Xiaomi, Motorola…</small></span></button>
+          <button class="wz-phone" data-go="wifi"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#EEF1F4" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10.5 5h3"/></svg>
+            <span>iPhone<small>Apple</small></span></button>
         </div>
       </div>
-      <p class="muted" style="margin:12px 0 0">Помилився з паролем? Вимкни і знову увімкни мене — налаштування відкриється знову.</p>
+
+      <!-- ===== Android: по Bluetooth через веб-застосунок ===== -->
+      <div class="wz-step" data-id="a-chrome">
+        <h2>Відкрий цю сторінку в Chrome</h2>
+        <p>Цей браузер не вміє говорити з роботами. Натисни кнопку — сторінка відкриється в Chrome, і ми продовжимо.</p>
+        <div class="wz-big"><a class="wz-btn" id="wz-intent" href="#">Відкрити в Chrome</a></div>
+      </div>
+      <div class="wz-step" data-id="a-on">
+        <h2>Увімкни мене</h2>
+        <p>Перемкни вимикач — я прокинусь і подивлюсь на тебе. Поклади телефон поруч зі мною.</p>
+        <div class="wz-big"><button class="wz-btn" data-next>Я прокинувся →</button></div>
+      </div>
+      <div class="wz-step" data-id="a-bt">
+        <h2>Увімкни Bluetooth</h2>
+        <p>Проведи пальцем від верхнього краю екрана вниз і торкнись значка Bluetooth, щоб він засвітився.</p>
+        <div class="mock" aria-hidden="true"><div class="tiles">
+          <div class="tile lit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M2.5 9a14 14 0 0 1 19 0M6 12.5a9 9 0 0 1 12 0M9.5 16a4 4 0 0 1 5 0"/></svg></div>
+          <div class="tile lit hl"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10-5 5V2l5 5L7 17"/></svg></div>
+          <div class="tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg></div>
+          <div class="tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 2v10"/><path d="M6 6a8 8 0 1 0 12 0"/></svg></div>
+        </div></div>
+        <div class="wz-big"><button class="wz-btn" data-next>Увімкнув →</button></div>
+      </div>
+      <div class="wz-step" data-id="a-perm">
+        <h2>Телефон спитає дозвіл</h2>
+        <p>Так він захищає тебе — це потрібно лише один раз. Якщо побачиш таке вікно, натисни <b>«Змінити дозволи»</b>:</p>
+        <div class="mock" aria-hidden="true">
+          <div class="ttl">Сайт redsnow09.github.io запитує під’єднання</div>
+          Chrome потрібен дозвіл на пошук пристроїв поблизу. <span class="lnk hl">Змінити дозволи</span>
+        </div>
+        <p style="margin-top:12px">Потім увімкни <b>«Пристрої поблизу»</b> і повернись назад:</p>
+        <div class="mock" aria-hidden="true">
+          <div class="row"><span>Камера</span><span style="color:#8E979F">Не дозволено</span></div>
+          <div class="row hl"><span style="color:#EEF1F4">Пристрої поблизу</span><span class="tog"></span></div>
+        </div>
+        <p class="muted" style="margin-top:10px">Слова у вікні можуть трохи відрізнятися — його малює сам телефон.</p>
+        <div class="wz-big"><button class="wz-btn" data-next>Зрозуміло →</button></div>
+      </div>
+      <div class="wz-step" data-id="a-go">
+        <h2>Знайди мене</h2>
+        <p>Натисни кнопку нижче. З’явиться список — вибери мене (<b>OXY</b> і чотири знаки) і натисни <b>«Підключити»</b>.</p>
+        <div class="mock" aria-hidden="true">
+          <div class="ttl">Сайт redsnow09.github.io запитує під’єднання</div>
+          <div class="row hl"><span style="color:#EEF1F4">OXY-4F2C</span></div>
+          <div class="bar"><span>Скасувати</span><span class="pill hl">Підключити</span></div>
+        </div>
+        <div class="wz-big"><a class="wz-btn" href="app.html#go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10-5 5V2l5 5L7 17"/></svg>Знайти мене</a></div>
+        <p class="muted" style="margin:14px 0 0">Не виходить? <button class="wz-link" data-go="wifi" style="padding:0">Підключи мене до Wi‑Fi через мою мережу</button></p>
+      </div>
+
+      <!-- ===== iPhone и запасной путь: через собственную сеть робота «OXY-…» ===== -->
+      <div class="wz-step" data-id="w-on">
+        <h2>Увімкни мене</h2>
+        <p>Перемкни вимикач. Коли я прокинусь, то на <b>10 хвилин</b> відкрию свою мережу Wi‑Fi — через неї ти скажеш мені пароль від домашньої.</p>
+        <div class="wz-big"><button class="wz-btn" data-next>Я прокинувся →</button></div>
+      </div>
+      <div class="wz-step" data-id="w-net">
+        <h2>Підключись до моєї мережі</h2>
+        <p>Відкрий на телефоні <b>Налаштування → Wi‑Fi</b> і вибери мережу <b>OXY‑…</b></p>
+        <div class="mock light" aria-hidden="true">
+          <div class="ttl">Wi‑Fi</div>
+          <div class="row"><span>Домашня мережа</span><span style="color:#8E8E93">🔒</span></div>
+          <div class="row hl"><span><b>OXY-4F2C</b></span><span style="color:#8E8E93">це я</span></div>
+          <div class="row"><span>Сусіди</span><span style="color:#8E8E93">🔒</span></div>
+        </div>
+        <p class="muted" style="margin-top:10px">Чотири знаки після «OXY‑» у кожного робота свої. Пароль не потрібен.</p>
+        <div class="wz-big"><button class="wz-btn" data-next>Підключився →</button></div>
+      </div>
+      <div class="wz-step" data-id="w-page">
+        <h2>Скажи мені пароль від свого Wi‑Fi</h2>
+        <p>Сторінка налаштування відкриється сама. Вибери свою домашню мережу, введи пароль і натисни <b>«Зберегти»</b>.</p>
+        <div class="mock" aria-hidden="true" style="background:#111">
+          <div class="ttl" style="font-weight:700">Привіт! Я OXY 👋</div>
+          <div>Мережа</div><div class="fld">Домашня мережа</div>
+          <div>Пароль</div><div class="fld">••••••••</div>
+          <span class="sbtn hl">Зберегти</span>
+        </div>
+        <p class="muted" style="margin-top:10px">Сторінка не відкрилась сама? Відкрий браузер і набери <b>192.168.4.1</b>. Мені потрібна мережа 2,4 ГГц.</p>
+        <div class="wz-big"><button class="wz-btn" data-next>Зберіг →</button></div>
+      </div>
+      <div class="wz-step" data-id="w-done">
+        <h2>Готово! 🎉</h2>
+        <p>Моя мережа «OXY‑…» зникне, а я підключусь до твоєї — і покажу годинник і погоду. Телефон сам повернеться до домашнього Wi‑Fi.</p>
+        <p class="muted">Помилився з паролем? Вимкни і знову увімкни мене — і пройди ці кроки ще раз.</p>
+        <p class="muted" id="wz-ios-note">Застосунок для iPhone — незабаром. А поки все головне я вмію сам.</p>
+      </div>
+
+      <div class="wz-nav"><button class="wz-link" id="wz-back">← Назад</button><span class="muted" id="wz-count"></span></div>
     </section>
 
-    <section class="card s3">
-      <span class="tag"><b>3</b>Крок</span>
-      <h2>Застосунок OXY</h2>
-      <p>Заряд, Wi-Fi і звук — через Bluetooth. Нічого не треба встановлювати: застосунок відкривається просто в Chrome.</p>
-      <div class="apps">
-        <a class="app" href="app.html">Android · Chrome <small>Відкрити</small></a>
-        <div class="app">iPhone · App Store <small>незабаром</small></div>
-      </div>
-      <p class="muted" style="margin:10px 0 0">На iPhone поки що налаштуй Wi-Fi з будь-якого телефона (крок 2).</p>
-    </section>
+    <p class="team after">Мене створила молода команда з України. Вона постійно працює над тим, щоб я ставав кращим, —
+      а нові вміння приходять до мене самі.</p>
 
     <section class="card s4">
       <h2 style="margin-top:0">Кнопка збоку</h2>
@@ -346,6 +451,58 @@
   window.addEventListener('pageshow', onScroll);
   setTimeout(onScroll, 250);
   update();
+})();
+</script>
+<script>
+/* Мастер подключения: по одному шагу. Android с Chrome — по Bluetooth через app.html; iPhone (и запасной путь) —
+   через собственную сеть робота «OXY-…» (страница настройки в роботе, wifi_setup.c). */
+(function () {
+  var ua = navigator.userAgent;
+  var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var android = /Android/.test(ua);
+  var PATHS = {
+    android: (android && !navigator.bluetooth ? ['a-chrome'] : []).concat(['a-on', 'a-bt', 'a-perm', 'a-go']),
+    wifi: ['w-on', 'w-net', 'w-page', 'w-done']
+  };
+  var card = document.getElementById('pidkliuchennia');
+  var steps = {};
+  [].forEach.call(card.querySelectorAll('.wz-step'), function (el) { steps[el.getAttribute('data-id')] = el; });
+  var path = null, i = 0, hist = [];
+
+  // свой телефон — первым и подсвеченным
+  var phones = document.getElementById('wz-phones');
+  var mine = android ? phones.querySelector('[data-go=android]') : ios ? phones.querySelector('[data-go=wifi]') : null;
+  if (mine) { mine.classList.add('mine'); mine.querySelector('small').textContent = 'Схоже, це твій телефон'; phones.insertBefore(mine, phones.firstChild); }
+  document.getElementById('wz-ios-note').hidden = !ios;
+  document.getElementById('wz-intent').href = 'intent://' + location.host + location.pathname + '?android=1#Intent;scheme=https;package=com.android.chrome;end';
+
+  function render(scroll) {
+    var id = path ? PATHS[path][i] : 'choose';
+    for (var k in steps) steps[k].classList.toggle('cur', k === id);
+    var dots = document.getElementById('wz-dots'), n = path ? PATHS[path].length : 0, h = '';
+    for (var j = 0; j < n; j++) h += '<i class="' + (j === i ? 'on' : j < i ? 'done' : '') + '"></i>';
+    dots.innerHTML = h;
+    document.getElementById('wz-count').textContent = path ? 'Крок ' + (i + 1) + ' з ' + n : '';
+    document.getElementById('wz-back').style.visibility = path ? 'visible' : 'hidden';
+    if (scroll) {
+      var r = card.getBoundingClientRect();
+      if (r.top < 0 || r.top > window.innerHeight * 0.35) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    window.dispatchEvent(new Event('scroll')); // «колесо» карточек пересчитать под новую высоту
+  }
+  function go(p) { hist.push([path, i]); path = p; i = 0; render(true); }
+  card.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-go],[data-next]');
+    if (!t) return;
+    if (t.hasAttribute('data-go')) go(t.getAttribute('data-go'));
+    else if (path && i < PATHS[path].length - 1) { hist.push([path, i]); i++; render(true); }
+  });
+  document.getElementById('wz-back').addEventListener('click', function () {
+    var h = hist.pop(); path = h ? h[0] : null; i = h ? h[1] : 0; render(true);
+  });
+  // пришли из другого браузера по кнопке «Відкрити в Chrome» — сразу к шагам Android
+  if (/[?&]android=1/.test(location.search) && android) { path = 'android'; }
+  render(false);
 })();
 </script>
 </body>
